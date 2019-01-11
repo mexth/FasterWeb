@@ -17,7 +17,7 @@
 
         <el-container>
             <el-main style="padding: 0; margin-left: 10px; margin-top: 10px;">
-                <div style="position: fixed; bottom: 0; right:0; left: 200px; top: 150px">
+                <div style="position: fixed; bottom: 0; right:0; left: 220px; top: 150px">
                 <el-table
                     :data="configData.results"
                     :show-header="configData.results.length !== 0 "
@@ -135,11 +135,6 @@
                     }).then(() => {
                         this.$api.delAllConfig({data:this.selectConfig}).then(resp => {
                             this.getConfigList();
-                        }).catch(resp => {
-                            this.$message.error({
-                                message: '服务器连接超时，请重试',
-                                duration: 1000
-                            })
                         })
                     })
                 }else {
@@ -161,15 +156,11 @@
                 this.$api.getConfigPaginationBypage({
                     params: {
                         page: this.currentPage,
-                        project: this.project
+                        project: this.project,
+                        search: this.search
                     }
                 }).then(resp => {
                     this.configData = resp;
-                }).catch(resp => {
-                    this.$message.error({
-                        message: '服务器连接超时，请重试',
-                        duration: 1000
-                    })
                 })
             },
 
@@ -186,11 +177,6 @@
                         } else {
                             this.$message.error(resp.msg);
                         }
-                    }).catch(resp => {
-                        this.$message.error({
-                            message: '服务器连接超时，请重试',
-                            duration: 1000
-                        })
                     })
                 })
             },
@@ -213,11 +199,6 @@
                         }else {
                             this.$message.error(resp.msg);
                         }
-                    }).catch(resp => {
-                        this.$message.error({
-                            message: '服务器连接超时，请重试',
-                            duration: 1000
-                        })
                     })
                 })
             },
@@ -233,11 +214,6 @@
             getConfigList() {
                 this.$api.configList({params:{project: this.project}}).then(resp => {
                     this.configData = resp;
-                }).catch(resp => {
-                    this.$message.error({
-                        message: '服务器连接超时，请重试',
-                        duration: 1000
-                    })
                 })
             },
         },
